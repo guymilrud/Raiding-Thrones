@@ -12,7 +12,7 @@ namespace DevelopersHub.RealtimeNetworking.Server
         private const string _mysqlServer = "127.0.0.1";
         private const string _mysqlUsername = "root";
         private const string _mysqlPassword = "";
-        private const string _mysqlDatabase = "database";
+        private const string _mysqlDatabase = "raiding_thrones";
 
         public static MySqlConnection mysqlConnection
         {
@@ -76,6 +76,42 @@ namespace DevelopersHub.RealtimeNetworking.Server
                 }
             }
         }
+        public static void AuthenticatePlayer(int id, string device)
+        { 
+            string query = String.Format("SELECT id from accounts WHERE device_id = '{0}';", device);
+            bool found = false;
+            using (MySqlCommand command = new MySqlCommand(query, mysqlConnection))
+            {
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            long account_id = int.Parse(reader["id"].ToString());
+                            AuthenticationResponse(id, account_id); 
+                            found = true;
+                        }
+                    }
+                }
+            }
+            if (found == false)
+            {
+                query = String.Format("INSERT INTO accounts (device_id) VALUES ('{0}');", device);
+                        using (MySqlCommand command = new MySqlCommand(query, mysqlConnection))
+                        {
+                            command.ExecuteNonQuery();
+                            long account_id = command.LastInsertedId;
+                            AuthenticationResponse(id, account_id); 
+                        }
+            }
+        }        
+
+        private static void AuthenticationResponse(int clientID, long accountID)
+        {
+            Sender.TCP_Send(clientID, 1, accountID);
+        }
+   
         #endregion
     }
 }

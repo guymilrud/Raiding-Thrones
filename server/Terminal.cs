@@ -38,14 +38,6 @@ namespace DevelopersHub.RealtimeNetworking.Server
         #region Data
         public static void ReceivedPacket(int clientID, Packet packet)
         {
-            // For test, remove it ->
-            int integerValue = packet.ReadInt();
-            string stringValue = packet.ReadString();
-            float floatValue = packet.ReadFloat();
-            Quaternion quaternionValue = packet.ReadQuaternion();
-            bool boolValue = packet.ReadBool();
-            Console.WriteLine("Int:{0} String:{1}, Float:{2}, Quaternion:{3}, Bool:{4}.", integerValue, stringValue, floatValue, quaternionValue, boolValue);
-            // <-
         }
 
         public static void ReceivedBytes(int clientID, int packetID, byte[] data)
@@ -55,17 +47,12 @@ namespace DevelopersHub.RealtimeNetworking.Server
 
         public static void ReceivedString(int clientID, int packetID, string data)
         {
-            // For test, remove it ->
-            if(packetID == 123)
+            switch  (packetID)
             {
-                Console.WriteLine(data);
-
-                Packet packet = new Packet();
-                packet.Write(555);
-                packet.Write(DateTime.Now.ToString());
-                Sender.TCP_Send(clientID, packet);
+                case 1:
+                Database.AuthenticatePlayer(clientID, data);
+                break;
             }
-            // <-
         }
 
         public static void ReceivedInteger(int clientID, int packetID, int data)

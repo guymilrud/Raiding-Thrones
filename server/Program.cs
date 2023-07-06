@@ -5,7 +5,6 @@ namespace DevelopersHub.RealtimeNetworking.Server
 {
     class Program
     {
-
         private static bool isRunning = false;
         private const float updatePeriod = 1000f / Terminal.updatesPerSecond;
 
