@@ -46,6 +46,51 @@ namespace DevelopersHub.RaidingThrones
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MouseScroll"",
+                    ""type"": ""Value"",
+                    ""id"": ""a454431a-d0a7-4bd7-b462-dbff52b6ed26"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""56ab1a0f-2fad-478e-9dc3-3f5a87ea9b70"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""TouchZoom"",
+                    ""type"": ""Button"",
+                    ""id"": ""679193b4-6806-47c4-a50f-3a5af7bda91e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TouchPosition0"",
+                    ""type"": ""Value"",
+                    ""id"": ""3e38dead-05b3-4f41-8aaf-a87a848f1967"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""TouchPosition1"",
+                    ""type"": ""Value"",
+                    ""id"": ""5868bda1-bc3b-48ad-b45f-ca83a39ebd63"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -92,6 +137,83 @@ namespace DevelopersHub.RaidingThrones
                     ""action"": ""MoveDelta"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23ab4105-73c2-4e35-a33f-302dce042376"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseScroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e2250dc-9c9e-4801-b1c9-a7a0011e1469"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""bb8463eb-fc27-4774-a675-966790dbcb92"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TouchZoom"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""1e4bd5b5-9de7-48b7-a826-d6388fb45e45"",
+                    ""path"": ""<Touchscreen>/touch0/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TouchZoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""7869784d-4f1f-495a-a197-adc2071eaa07"",
+                    ""path"": ""<Touchscreen>/touch1/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TouchZoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22d29792-7da4-499f-927a-b48442d90b16"",
+                    ""path"": ""<Touchscreen>/touch0/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TouchPosition0"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79e64c21-3511-4b00-a7d5-5eefe464b5ca"",
+                    ""path"": ""<Touchscreen>/touch1/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TouchPosition1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -102,6 +224,11 @@ namespace DevelopersHub.RaidingThrones
             m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
             m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
             m_Main_MoveDelta = m_Main.FindAction("MoveDelta", throwIfNotFound: true);
+            m_Main_MouseScroll = m_Main.FindAction("MouseScroll", throwIfNotFound: true);
+            m_Main_MousePosition = m_Main.FindAction("MousePosition", throwIfNotFound: true);
+            m_Main_TouchZoom = m_Main.FindAction("TouchZoom", throwIfNotFound: true);
+            m_Main_TouchPosition0 = m_Main.FindAction("TouchPosition0", throwIfNotFound: true);
+            m_Main_TouchPosition1 = m_Main.FindAction("TouchPosition1", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -165,12 +292,22 @@ namespace DevelopersHub.RaidingThrones
         private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
         private readonly InputAction m_Main_Move;
         private readonly InputAction m_Main_MoveDelta;
+        private readonly InputAction m_Main_MouseScroll;
+        private readonly InputAction m_Main_MousePosition;
+        private readonly InputAction m_Main_TouchZoom;
+        private readonly InputAction m_Main_TouchPosition0;
+        private readonly InputAction m_Main_TouchPosition1;
         public struct MainActions
         {
             private @Controls m_Wrapper;
             public MainActions(@Controls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Main_Move;
             public InputAction @MoveDelta => m_Wrapper.m_Main_MoveDelta;
+            public InputAction @MouseScroll => m_Wrapper.m_Main_MouseScroll;
+            public InputAction @MousePosition => m_Wrapper.m_Main_MousePosition;
+            public InputAction @TouchZoom => m_Wrapper.m_Main_TouchZoom;
+            public InputAction @TouchPosition0 => m_Wrapper.m_Main_TouchPosition0;
+            public InputAction @TouchPosition1 => m_Wrapper.m_Main_TouchPosition1;
             public InputActionMap Get() { return m_Wrapper.m_Main; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -186,6 +323,21 @@ namespace DevelopersHub.RaidingThrones
                 @MoveDelta.started += instance.OnMoveDelta;
                 @MoveDelta.performed += instance.OnMoveDelta;
                 @MoveDelta.canceled += instance.OnMoveDelta;
+                @MouseScroll.started += instance.OnMouseScroll;
+                @MouseScroll.performed += instance.OnMouseScroll;
+                @MouseScroll.canceled += instance.OnMouseScroll;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
+                @TouchZoom.started += instance.OnTouchZoom;
+                @TouchZoom.performed += instance.OnTouchZoom;
+                @TouchZoom.canceled += instance.OnTouchZoom;
+                @TouchPosition0.started += instance.OnTouchPosition0;
+                @TouchPosition0.performed += instance.OnTouchPosition0;
+                @TouchPosition0.canceled += instance.OnTouchPosition0;
+                @TouchPosition1.started += instance.OnTouchPosition1;
+                @TouchPosition1.performed += instance.OnTouchPosition1;
+                @TouchPosition1.canceled += instance.OnTouchPosition1;
             }
 
             private void UnregisterCallbacks(IMainActions instance)
@@ -196,6 +348,21 @@ namespace DevelopersHub.RaidingThrones
                 @MoveDelta.started -= instance.OnMoveDelta;
                 @MoveDelta.performed -= instance.OnMoveDelta;
                 @MoveDelta.canceled -= instance.OnMoveDelta;
+                @MouseScroll.started -= instance.OnMouseScroll;
+                @MouseScroll.performed -= instance.OnMouseScroll;
+                @MouseScroll.canceled -= instance.OnMouseScroll;
+                @MousePosition.started -= instance.OnMousePosition;
+                @MousePosition.performed -= instance.OnMousePosition;
+                @MousePosition.canceled -= instance.OnMousePosition;
+                @TouchZoom.started -= instance.OnTouchZoom;
+                @TouchZoom.performed -= instance.OnTouchZoom;
+                @TouchZoom.canceled -= instance.OnTouchZoom;
+                @TouchPosition0.started -= instance.OnTouchPosition0;
+                @TouchPosition0.performed -= instance.OnTouchPosition0;
+                @TouchPosition0.canceled -= instance.OnTouchPosition0;
+                @TouchPosition1.started -= instance.OnTouchPosition1;
+                @TouchPosition1.performed -= instance.OnTouchPosition1;
+                @TouchPosition1.canceled -= instance.OnTouchPosition1;
             }
 
             public void RemoveCallbacks(IMainActions instance)
@@ -217,6 +384,11 @@ namespace DevelopersHub.RaidingThrones
         {
             void OnMove(InputAction.CallbackContext context);
             void OnMoveDelta(InputAction.CallbackContext context);
+            void OnMouseScroll(InputAction.CallbackContext context);
+            void OnMousePosition(InputAction.CallbackContext context);
+            void OnTouchZoom(InputAction.CallbackContext context);
+            void OnTouchPosition0(InputAction.CallbackContext context);
+            void OnTouchPosition1(InputAction.CallbackContext context);
         }
     }
 }
