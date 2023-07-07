@@ -1,4 +1,4 @@
-namespace DevelopersHub.raiding_thrones
+namespace DevelopersHub.RaidingThrones
 {
     using System.Collections;
     using System.Collections.Generic;
