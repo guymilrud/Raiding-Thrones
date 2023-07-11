@@ -115,6 +115,9 @@ crashlytics-build.properties
 /.DS_Store
 /.AppleDouble/
 /.LSOverride
+.DS_Store
+.AppleDouble/
+.LSOverride
 
 # Logs
 /*.log
