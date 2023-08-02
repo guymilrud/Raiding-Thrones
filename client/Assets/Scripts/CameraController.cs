@@ -49,7 +49,7 @@ namespace DevelopersHub.RaidingThrones
 
         private void Start()
           {
-            Initialize(center:Vector3.zero, right:10, left:10, up:10, down:10, angle:45, zoom:5, zoomMin:3, zoomMax:10);
+            Initialize(center:Vector3.zero, right:40, left:40, up:40, down:40, angle:45, zoom:10, zoomMin:5, zoomMax:20);
           }
 
         public void Initialize(Vector3 center, float right, float left, float up, float down, float angle, float zoom, float zoomMin, float zoomMax)
@@ -75,7 +75,7 @@ namespace DevelopersHub.RaidingThrones
             _pivot.localPosition = Vector3.zero;
             _pivot.localEulerAngles = new Vector3(_angle, 0, 0);
 
-            _target.localPosition = new Vector3(0, 0, -10);
+            _target.localPosition = new Vector3(0, 0, -100);
             _target.localEulerAngles = Vector3.zero;
         }
 
@@ -208,11 +208,13 @@ namespace DevelopersHub.RaidingThrones
 
             if (height > (_up + _down) / 2f)
             {
-                _zoom = (_up + _down) / 2f;
+                float center_distance =  (_up + _down) / 2f;
+                _zoom = center_distance * Mathf.Sin(_angle * Mathf.Deg2Rad);
             }
             if (width > (_right + _left) / 2f)
             {
-                _zoom = (_right + _left) / 2f / _camera.aspect;
+                float center_distance = (_right + _left) / 2f;
+                _zoom = center_distance * Mathf.Sin(_angle * Mathf.Deg2Rad) / _camera.aspect;
             }
 
             height = PlaneOrtographicSize();
@@ -244,7 +246,7 @@ namespace DevelopersHub.RaidingThrones
         private float PlaneOrtographicSize()
         {
             float height = _zoom * 2f;
-            return height / Mathf.Sign(_angle * Mathf.Deg2Rad) / 2f;
+            return height / Mathf.Sin(_angle * Mathf.Deg2Rad) / 2f;
         }
 
         private Vector3 CameraScreenPositionToWorldPosition(Vector2 position)
@@ -259,7 +261,7 @@ namespace DevelopersHub.RaidingThrones
         {
             Vector3 point = CameraScreenPositionToWorldPosition(position);
             float height = point.y - _root.position.y;
-            float x = height / Mathf.Sign(_angle * Mathf.Deg2Rad);
+            float x = height / Mathf.Sin(_angle * Mathf.Deg2Rad);
             return point + _camera.transform.forward.normalized * x;
         }
 
